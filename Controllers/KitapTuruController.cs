@@ -26,7 +26,22 @@ namespace Library.Controllers
 			return View();
 		}
 
-		public IActionResult Guncelle() 
+        [HttpPost]
+        public IActionResult Ekle(KitapTuru kitapTuru)
+        {
+            if(ModelState.IsValid) 
+            {
+                _uygulamaDbContext.KitapTurleri.Add(kitapTuru);
+                _uygulamaDbContext.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            return View();
+
+        }
+
+
+        public IActionResult Guncelle() 
 		{
 			return View();
 		}

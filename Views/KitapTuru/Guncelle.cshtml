@@ -1,27 +1,27 @@
 ﻿@model KitapTuru
 
-
 <form method="post">
-	<input asp-for="Id" hidden/>
-	<div class="border p-3 mt-5">
-		<div class="row pb-3">
-			<h2 class="text-primary">Kitap Türü Güncelle</h2>
-			</hr>
-		</div>
+    <input asp-for="Id" hidden />
 
-		<div class="mb-3">
-			<label asp-for="Ad" class="p-0"></label>
-			<input asp-for="Ad" class="form-control"/>
-			<span asp-validation-for="Ad" class="text-danger"></span>
-		</div>
+    <div class="container mt-5">
+        <div class="card border-success p-4">
+            <div class="row pb-3">
+                <h2 class="text-success">Kitap Türü Güncelle</h2>
+                <hr class="my-4">
+            </div>
 
-		<button type="submit" class="btn btn-lg btn-primary" style="width:250px">Kitap Türü Güncelle</button>
+            <div class="mb-3">
+                <label asp-for="Ad" class="form-label"></label>
+                <input asp-for="Ad" class="form-control" placeholder="Kitap Türü Adı" />
+                <span asp-validation-for="Ad" class="text-danger"></span>
+            </div>
 
-		<a asp-controller="KitapTuru" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
-			Kitap Türlerine Geri Dön
-		</a>
-
-	</div>
-
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success btn-lg" style="width:250px">Kitap Türü Güncelle</button>
+                <a asp-controller="KitapTuru" asp-action="Index" class="btn btn-secondary btn-lg mt-3" style="width:250px">
+                    Kitap Türlerine Geri Dön
+                </a>
+            </div>
+        </div>
+    </div>
 </form>
-
