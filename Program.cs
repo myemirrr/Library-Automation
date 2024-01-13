@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using Library.EF;
+using Library.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<UygulamaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
+//_kitapTuruRepository nesne + servis + dependency 
+builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>();
 
 builder.Services.AddRazorPages();
 

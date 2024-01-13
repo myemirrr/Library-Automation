@@ -11,5 +11,6 @@ namespace Library.EF
  
         }
         public DbSet<KitapTuru> KitapTurleri { get; set; }
+        public object Kitaplar { get; internal set; }
     }
 }
