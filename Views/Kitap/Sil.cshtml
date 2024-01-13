@@ -1,0 +1,41 @@
+﻿@model Kitap
+
+<form method="post">
+    <input asp-for="Id" hidden />
+
+    <div class="container mt-5">
+        <div class="card border-danger p-4">
+            <div class="row pb-3">
+                <h2 class="text-danger">Kitap Türü Sil</h2>
+                <hr class="my-4">
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="KitapAdi" class="form-label">Kitap Adı</label>
+                <input asp-for="KitapAdi" disabled class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Tanim" class="form-label">Tanım</label>
+                <input asp-for="Tanim" disabled class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Yazar" class="form-label">Yazar</label>
+                <input asp-for="Yazar" disabled class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Fiyat" class="form-label">Fiyat</label>
+                <input asp-for="Fiyat" disabled class="form-control" />
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger btn-lg" style="width:250px">Kitap Sil</button>
+                <a asp-controller="Kitap" asp-action="Index" class="btn btn-secondary btn-lg mt-3" style="width:250px">
+                    Vitrine Geri Dön
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
