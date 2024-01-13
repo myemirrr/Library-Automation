@@ -1,16 +1,21 @@
 ﻿using Library.EF;
 using Library.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Library.Controllers
 {
     public class KitapController : Controller
     {
         private readonly IKitapRepository _kitapRepository;
+        private readonly IKitapTuruRepository _kitapTuruRepository;
+		public readonly IWebHostEnvironment _webHostEnvironment;
 
-        public KitapController(IKitapRepository context)
+        public KitapController(IKitapRepository context, IKitapTuruRepository kitapTuruRepository, IWebHostEnvironment webHostEnvironment)
         {
             _kitapRepository = context;
+            _kitapTuruRepository = kitapTuruRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
@@ -20,54 +25,69 @@ namespace Library.Controllers
         }
 
 
-        public IActionResult Ekle()
+       public IActionResult EkleGuncelle(int? id)
         {
-            return View();
-        }
+			IEnumerable<SelectListItem> KitapTuruList = _kitapTuruRepository.GetAll()
+				.Select(k => new SelectListItem
+				{
+					Text = k.Ad,
+					Value = k.Id.ToString()
+				});
+			ViewBag.KitapTuruList = KitapTuruList;
 
-
-        [HttpPost]
-        public IActionResult Ekle(Kitap kitap)
-        {
-            if (ModelState.IsValid)
-            {
-                _kitapRepository.Ekle(kitap);
-                _kitapRepository.Kaydet(); // SaveChanges() yapmazsanız bilgiler veri tabanına eklenmez!
-                TempData["basarili"] = "Yeni Kitap başarıyla oluşturuldu!";
-                return RedirectToAction("Index", "Kitap");
-            }
-            return View();
-        }
-
-
-
-        public IActionResult Guncelle(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Kitap? kitapVt = _kitapRepository.Get(u => u.Id == id);  // Expression<Func<T, bool>> filtre
-            if (kitapVt == null)
-            {
-                return NotFound();
-            }
-            return View(kitapVt);
+			if (id == null || id==0)
+			{
+				// ekle
+				return View();
+			}
+			else
+			{
+				// guncelleme
+				Kitap? kitapVt = _kitapRepository.Get(u => u.Id == id);  // Expression<Func<T, bool>> filtre
+				if (kitapVt == null)
+				{
+					return NotFound();
+				}
+				return View(kitapVt);
+			}
+			
         }
 
         [HttpPost]
-        public IActionResult Guncelle(Kitap kitap)
-        {
-            if (ModelState.IsValid)
-            {
-                _kitapRepository.Guncelle(kitap);
-                _kitapRepository.Kaydet(); // SaveChanges() yapmazsanız bilgiler veri tabanına eklenmez!
-                TempData["basarili"] = "Yeni Kitap başarıyla güncellendi!";
+        public IActionResult EkleGuncelle(Kitap kitap, IFormFile? file)
+		{
+			var errors = ModelState.Values.SelectMany(v => v.Errors);
+
+			if (ModelState.IsValid)
+			{
+				string wwwRootPath = _webHostEnvironment.WebRootPath;
+				string kitapPath = Path.Combine(wwwRootPath, @"img");
+
+				if (file != null)
+				{
+					using (var fileStream = new FileStream(Path.Combine(kitapPath, file.FileName), FileMode.Create))
+					{
+						file.CopyTo(fileStream);
+					}
+					kitap.ResimUrl = @"\img\" + file.FileName;
+				}				
+								
+				if (kitap.Id == 0)
+				{
+					_kitapRepository.Ekle(kitap);
+					TempData["basarili"] = "Yeni Kitap başarıyla oluşturuldu!";
+				}
+				else
+				{
+					_kitapRepository.Guncelle(kitap);
+					TempData["basarili"] = "Kitap güncelleme başarılı!";
+				}
+				
+				_kitapRepository.Kaydet(); // SaveChanges() yapmazsanız bilgiler veri tabanına eklenmez!			
                 return RedirectToAction("Index", "Kitap");
             }
-            return View();
-        }
-
+            return View();                                 
+		}
 
         // GET ACTION
         public IActionResult Sil(int? id)

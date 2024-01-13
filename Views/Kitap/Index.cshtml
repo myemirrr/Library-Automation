@@ -29,6 +29,9 @@
                     Kitap Yazar
                 </th>
                 <th>
+                    Kitap Türü
+                </th>
+                <th>
                     Fiyat
                 </th>
             </tr>
@@ -42,9 +45,10 @@
                     <td>@kitap.KitapAdi</td>
                     <td>@kitap.Tanim</td>
                     <td>@kitap.Yazar</td>
-                   <td>@kitap.Fiyat</td>
+                    <td></td>
+                    <td>@kitap.Fiyat</td>
                     <td>
-                        <a asp-controller="Kitap" asp-action="Guncelle" asp-route-id="@kitap.Id" type="button" class="btn btn-success" style="width:200px">Güncelle</a>
+                        <a asp-controller="Kitap" asp-action="EkleGuncelle" asp-route-id="@kitap.Id" type="button" class="btn btn-success" style="width:200px">Güncelle</a>
                     </td>
                     <td>
                         <a asp-controller="Kitap" asp-action="Sil" asp-route-id="@kitap.Id" type="button" class="btn btn-danger" style="width:200px">Sil</a>
@@ -56,8 +60,8 @@
 
     <div class="row pt-3 pb-1">
         <div>
-            <a asp-controller="Kitap" asp-action="Ekle" class="btn btn-lg btn-info" type="button" style="background-color:#4d2b82; border-color: #4d2b82;">
-                Yeni Kitap 
+            <a asp-controller="Kitap" asp-action="EkleGuncelle" class="btn btn-lg btn-info" type="button" style="background-color:#4d2b82; border-color: #4d2b82; "width:250px">
+                Yeni Kitap Ekle
             </a>
         </div>
     </div>

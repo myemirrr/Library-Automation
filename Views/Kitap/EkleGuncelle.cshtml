@@ -1,0 +1,68 @@
+﻿@model Kitap
+
+
+<form method="post" action="Ekle" enctype="multipart/form-data">
+
+    <div class="border p-3 mt-5">
+        <div class="row pb-3">
+            
+            <h2 class="text-primary">@(Model ==null? "Kitap Ekle":"Kitap Güncelle")</h2>
+            <hr />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="KitapAdi" class="form-label"></label>
+            <input asp-for="KitapAdi" class="form-control" placeholder="Kitap Adı" />
+            <span asp-validation-for="KitapAdi" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Tanim" class="form-label"></label>
+            <input asp-for="Tanim" class="form-control" placeholder="Kitap Tanımı" />
+            <span asp-validation-for="Tanim" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Yazar" class="form-label"></label>
+            <input asp-for="Yazar" class="form-control" placeholder="Yazar Adı" />
+            <span asp-validation-for="Yazar" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="KitapTuruId" class="form-label"></label>
+            <select asp-for="KitapTuruId" asp-items="ViewBag.KitapTuruList" class="form-control">
+                <option value="">Kitap Türü Seçin</option>
+            </select>
+            <span asp-validation-for="KitapTuruId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Fiyat" class="form-label"></label>
+            <input asp-for="Fiyat" class="form-control" placeholder="Fiyat" />
+            <span asp-validation-for="Fiyat" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ResimUrl" class="p-0"></label>
+            <input type="file" name="file" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            @if (Model != null)
+            {
+                <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Kitap Güncelle </button>
+            }
+            else
+            {
+
+
+                <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Kitap Ekle</button>
+            }
+            
+        </div>
+
+        <div class="mb-3">
+            <a asp-controller="Kitap" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">
+                Vitrine Geri Dön
+            </a>
+        </div>
+
+    </div>
+
+</form>
