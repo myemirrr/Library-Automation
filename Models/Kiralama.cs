@@ -9,13 +9,14 @@ namespace Library.Models
 
         [Key]
         public int Id { get; set; }
-
+        [Display(Name = "Öğrenci no")]
         [Required]
         public int OgrenciId { get; set; }
 
 
         [ValidateNever]
-        public int KitapId { get; set; }
+		[Display(Name = "Kitap")]
+		public int KitapId { get; set; }
 
         [ForeignKey("KitapId")]
         [ValidateNever]

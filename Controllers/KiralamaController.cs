@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Library.Controllers
 {
-    
+    [Authorize(Roles = UserRoles.Role_Admin)]
     public class KiralamaController : Controller
     {
         private readonly IKiralamaRepository _kiralamaRepository;
@@ -26,9 +26,11 @@ namespace Library.Controllers
             return View(objKiralamaList);
         }
 
-        // Get
+        // Get //Vitrin gibi bir şey yapcam kitaplar çekcem db den bir de haberler gibi bir şey yapcam 
         public IActionResult EkleGuncelle(int? id)
         {
+            var users = _kitapRepository.GetUsers();
+            ViewBag.Users = users;
             IEnumerable<SelectListItem> KitapList = _kitapRepository.GetAll()
                 .Select(k => new SelectListItem
                 {

@@ -1,4 +1,5 @@
 ﻿using Library.EF;
+using Microsoft.AspNetCore.Identity;
 
 namespace Library.Models
 {
@@ -23,6 +24,12 @@ namespace Library.Models
         public void Kaydet()
         {
             _uygulamaDbContext.SaveChanges();
+        }
+
+        public List<IdentityUser> GetUsers()
+        {
+            var users = _uygulamaDbContext.Users.ToList();
+            return users;
         }
     }
 }

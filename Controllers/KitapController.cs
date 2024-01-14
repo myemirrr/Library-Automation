@@ -1,10 +1,12 @@
 ﻿using Library.EF;
 using Library.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Library.Controllers
 {
+    [Authorize(Roles = UserRoles.Role_Admin)]
     public class KitapController : Controller
     {
         private readonly IKitapRepository _kitapRepository;

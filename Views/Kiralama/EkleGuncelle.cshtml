@@ -10,11 +10,17 @@
 				<h2 class="text-primary">@(Model == null ? "Yeni Kiralama" : "Kiralama Güncelle")</h2>
 				</hr>
 			</div>
-
 			<div class="mb-3">
 				<label asp-for="OgrenciId" class="p-0"></label>
+				<select asp-for="OgrenciId" class="form-select">
+					@foreach (var item in ViewBag.Users)
+					{
+							<option value="@item.Ogrencino" asp-for="OgrenciId">@item.Ogrencino</option>
+					}
+				</select>
+				@* <label asp-for="OgrenciId" class="p-0"></label>
 				<input asp-for="OgrenciId" class="form-control"/>
-				<span asp-validation-for="OgrenciId" class="text-danger"></span>
+				<span asp-validation-for="OgrenciId" class="text-danger"></span> *@
 			</div>
 
 			<div class="mb-3">

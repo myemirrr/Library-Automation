@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Library.EF;
 using Library.Models;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,15 +10,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<UygulamaDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<UygulamaDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<UygulamaDbContext>().AddDefaultTokenProviders();
 
-//_kitapTuruRepository nesne + servis + dependency 
+builder.Services.AddRazorPages();
+
+
+// _kitapTuruRepository => Dependency Injection
 builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>();
 builder.Services.AddScoped<IKitapRepository, KitapRepository>();
 builder.Services.AddScoped<IKiralamaRepository, KiralamaRepository>();
-builder.Services.AddRazorPages();
+
+//builder.Services.AddScoped<IEmailSender, EmailSender>();
+
 
 var app = builder.Build();
 
@@ -36,7 +41,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
 
 app.MapRazorPages();
 
