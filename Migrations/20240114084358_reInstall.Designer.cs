@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(UygulamaDbContext))]
-    [Migration("20240113180248_ForeignKeyEkle")]
-    partial class ForeignKeyEkle
+    [Migration("20240114084358_reInstall")]
+    partial class reInstall
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,10 @@ namespace Library.Migrations
 
                     b.Property<int>("KitapTuruId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ResimUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tanim")
                         .IsRequired()

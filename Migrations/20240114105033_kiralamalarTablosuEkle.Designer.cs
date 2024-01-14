@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(UygulamaDbContext))]
-    [Migration("20240113182006_ResimUrl")]
-    partial class ResimUrl
+    [Migration("20240114105033_kiralamalarTablosuEkle")]
+    partial class kiralamalarTablosuEkle
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,27 @@ namespace Library.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Library.Models.Kiralama", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("KitapId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OgrenciId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KitapId");
+
+                    b.ToTable("Kiralamalar");
+                });
 
             modelBuilder.Entity("Library.Models.Kitap", b =>
                 {
@@ -77,6 +98,17 @@ namespace Library.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("KitapTurleri");
+                });
+
+            modelBuilder.Entity("Library.Models.Kiralama", b =>
+                {
+                    b.HasOne("Library.Models.Kitap", "Kitap")
+                        .WithMany()
+                        .HasForeignKey("KitapId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kitap");
                 });
 
             modelBuilder.Entity("Library.Models.Kitap", b =>

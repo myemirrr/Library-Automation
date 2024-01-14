@@ -14,7 +14,7 @@ builder.Services.AddDbContext<UygulamaDbContext>(options =>
 //_kitapTuruRepository nesne + servis + dependency 
 builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>();
 builder.Services.AddScoped<IKitapRepository, KitapRepository>();
-
+builder.Services.AddScoped<IKiralamaRepository, KiralamaRepository>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

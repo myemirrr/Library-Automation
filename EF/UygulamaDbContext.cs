@@ -12,6 +12,7 @@ namespace Library.EF
         }
         public DbSet<Kitap> Kitaplar { get; set; }
         public DbSet<KitapTuru> KitapTurleri { get; set; }
+        public DbSet<Kiralama> Kiralamalar { get; set; }
 
        
     }

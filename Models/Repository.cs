@@ -15,6 +15,7 @@ namespace Library.Models
         {
             _uygulamaDbContext = uygulamaDbContext;
             this.dbSet = _uygulamaDbContext.Set<T>();
+            _uygulamaDbContext.Kitaplar.Include(k => k.KitapTuru);
             
         }
 
