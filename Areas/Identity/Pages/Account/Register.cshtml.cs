@@ -92,12 +92,16 @@ namespace Library.Areas.Identity.Pages.Account
             [DataType(DataType.Text)]
             [Display(Name = "Öğrenci No")]
             public string OgrenciNumara { get; set; }
+			[Required]
+			public string? Adres { get; set; }
+			public string? Fakulte { get; set; }
+			public string? Bolum { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
-            [DataType(DataType.Password)]
+			/// <summary>
+			///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+			///     directly from your code. This API may change or be removed in future releases.
+			/// </summary>
+			[DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
@@ -117,9 +121,14 @@ namespace Library.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                user.Ogrencino = Convert.ToInt32(Input.OgrenciNumara);
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                user.Ogrencino = Convert.ToInt32(Input.OgrenciNumara);
+                user.Bolum = Input.Bolum;
+                user.Adres=Input.Adres;
+                  
+                
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

@@ -26,7 +26,7 @@ namespace Library.Controllers
             return View(objKiralamaList);
         }
 
-        // Get //Vitrin gibi bir şey yapcam kitaplar çekcem db den bir de haberler gibi bir şey yapcam 
+        // Get 
         public IActionResult EkleGuncelle(int? id)
         {
             var users = _kitapRepository.GetUsers();
@@ -74,7 +74,7 @@ namespace Library.Controllers
                     TempData["basarili"] = "Kiralama Kayıt güncelleme başarılı!";
                 }
 
-                _kiralamaRepository.Kaydet(); // SaveChanges() yapmazsanız bilgiler veri tabanına eklenmez!			
+                _kiralamaRepository.Kaydet(); 		
                 return RedirectToAction("Index", "Kiralama");
             }
             return View();
