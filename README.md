@@ -1,4 +1,4 @@
-In this project, I learned how to manage authentication auth operations using identity library. I tried to develop library automation using mvc design pattern.
+In this project, I learned how to manage authentication auth operations using identity library. I tried to develop library automation using mvc design pattern.(My First MVC Project)
 
 ![Ekran görüntüsü 2024-05-06 164501](https://github.com/myemirrr/Library-Automation/assets/77809017/310cc171-7e15-4375-92a9-405885215902)
 ![Ekran görüntüsü 2024-05-06 164210](https://github.com/myemirrr/Library-Automation/assets/77809017/178e5781-5b43-47bb-8e1e-ca75c8825f63)
